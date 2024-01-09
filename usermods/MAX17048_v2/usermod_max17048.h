@@ -192,13 +192,14 @@ class  Usermod_MAX17048 : public Usermod {
         // that we are still waiting for the first measurement
         battery_json.add((USERMOD_MAX17048_FIRST_MONITOR_AT - millis()) / 1000);
         battery_json.add(F(" sec until read"));
-      } else {  
-        battery_json.add(F("Voltage: "));
-        battery_json.add(lastBattVoltage);
-        battery_json.add(F("V "));
-        battery_json.add(F(" - Percent: "));
-        battery_json.add(lastBattPercent);
-        battery_json.add(F("%"));
+      } else {
+        battery_json.add(F("Enabled"));
+        JsonArray voltage_json = user.createNestedArray(F("Battery Voltage"));
+        voltage_json.add(lastBattVoltage);
+        voltage_json.add(F("V"));
+        JsonArray percent_json = user.createNestedArray(F("Battery Percent"));
+        percent_json.add(lastBattPercent);
+        percent_json.add(F("%"));
       }
     }
 
